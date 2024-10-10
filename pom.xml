@@ -30,6 +30,7 @@
         <java.version>21</java.version>
     </properties>
 
+    
     <!-- web, thymeleaf, jpa, mysql, validation, lombok, devtools -->
     <dependencies>
         <dependency>
