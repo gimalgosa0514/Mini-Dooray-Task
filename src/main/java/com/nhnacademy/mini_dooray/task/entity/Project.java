@@ -19,7 +19,13 @@ public class Project {
     private Long projectId;
 
     private String projectName;
-    private String projectStatus;
+    private ProjectStatus projectStatus;
 
     private String projectManagerId;
+
+    public Project(String projectName, ProjectStatus projectStatus, String projectManagerId) {
+        this.projectName = projectName;
+        this.projectStatus = projectStatus;
+        this.projectManagerId = projectManagerId;
+    }
 }
