@@ -20,5 +20,6 @@ public class Project {
 
     private String projectName;
     private String projectStatus;
+
     private String projectManagerId;
 }
