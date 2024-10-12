@@ -1,5 +1,6 @@
 package com.nhnacademy.mini_dooray.task.controller;
 
+import com.nhnacademy.mini_dooray.task.domain.ResponseMessage;
 import com.nhnacademy.mini_dooray.task.dto.*;
 import com.nhnacademy.mini_dooray.task.entity.Task;
 import com.nhnacademy.mini_dooray.task.service.TaskService;
@@ -31,23 +32,23 @@ public class TaskController {
 
     // 업무 등록
     @PostMapping
-    public ResponseEntity<ResponseMessageDto> addTask(@PathVariable long projectId,@RequestBody TaskAddDto dto){
+    public ResponseEntity<ResponseMessage> addTask(@PathVariable long projectId, @RequestBody TaskAddDto dto){
         taskService.addTask(projectId,dto);
-        return new ResponseEntity<>(new ResponseMessageDto("생성 성공"),HttpStatus.OK);
+        return new ResponseEntity<>(new ResponseMessage("생성 성공"),HttpStatus.OK);
     }
 
     // 업무 수정
     @PutMapping("/{id}")
-    public ResponseEntity<ResponseMessageDto> editTask(@PathVariable long id,@RequestBody TaskEditDto dto){
+    public ResponseEntity<ResponseMessage> editTask(@PathVariable long id,@RequestBody TaskEditDto dto){
         taskService.editTask(id,dto);
-        return new ResponseEntity<>(new ResponseMessageDto("수정 성공"),HttpStatus.OK);
+        return new ResponseEntity<>(new ResponseMessage("수정 성공"),HttpStatus.OK);
     }
 
     // 업무 삭제
     @DeleteMapping("/{id}")
-    public ResponseEntity<ResponseMessageDto> deleteTask(@PathVariable long id){
+    public ResponseEntity<ResponseMessage> deleteTask(@PathVariable long id){
         taskService.deleteTask(id);
 
-        return new ResponseEntity<>(new ResponseMessageDto("삭제 성공"),HttpStatus.OK);
+        return new ResponseEntity<>(new ResponseMessage("삭제 성공"),HttpStatus.OK);
     }
 }
