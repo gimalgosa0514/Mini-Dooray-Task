@@ -27,7 +27,7 @@ public class TaskService {
     public TaskListDto getTaskList(long projectId){
         List<TaskDto> list=new ArrayList<>();
 
-        for(Task task:taskRepository.findAllByProjectProjectId(projectId)){
+        for(Task task:taskRepository.findByProject_ProjectId(projectId)){
             TaskDto dto=new TaskDto(task.getTaskId(),task.getMemberId(),task.getTaskTitle(),task.getTaskContent());
             if(task.getMilestone()!=null){
                 dto.setMilestoneName(task.getMilestone().getMilestoneName());
