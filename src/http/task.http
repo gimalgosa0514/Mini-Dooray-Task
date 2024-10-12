@@ -29,3 +29,16 @@ Content-Type: application/json
 
 ### 업무 삭제
 DELETE http://localhost:8082/project/1/task/1
+
+
+### 업무에 마일스톤 추가
+POST http://localhost:8082/project/1/task/1/milestone
+Content-Type: application/json
+
+{
+  "milestoneId": 1
+}
+
+
+### 업무에 마일스톤 삭제
+DELETE http://localhost:8082/project/1/task/1/milestone
