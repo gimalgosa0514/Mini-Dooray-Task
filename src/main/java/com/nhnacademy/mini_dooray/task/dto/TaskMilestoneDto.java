@@ -1,10 +1,12 @@
 package com.nhnacademy.mini_dooray.task.dto;
 
+import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-@Getter
+@NoArgsConstructor
 @AllArgsConstructor
-public class ResponseMessageDto {
-    private String message;
+@Getter
+public class TaskMilestoneDto {
+    private long milestoneId;
 }
