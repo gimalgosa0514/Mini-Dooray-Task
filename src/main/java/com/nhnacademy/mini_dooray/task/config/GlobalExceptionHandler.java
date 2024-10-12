@@ -1,6 +1,7 @@
 package com.nhnacademy.mini_dooray.task.config;
 
-import com.nhnacademy.mini_dooray.task.domain.ErrorMessage;
+import com.nhnacademy.mini_dooray.task.domain.ResponseMessage;
+import com.nhnacademy.mini_dooray.task.exception.NoProjectFoundByMemberException;
 import com.nhnacademy.mini_dooray.task.exception.NoSuchProjectFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -12,8 +13,14 @@ import static org.springframework.http.HttpStatus.*;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(NoSuchProjectFoundException.class)
-    public ResponseEntity<ErrorMessage> handleNoSuchProjectFoundException(NoSuchProjectFoundException e) {
-        ErrorMessage errorResponse = new ErrorMessage(e.getMessage(), 404);
-        return ResponseEntity.status(NOT_FOUND).body(errorResponse);
+    public ResponseEntity<ResponseMessage> handleNoSuchProjectFoundException(NoSuchProjectFoundException e) {
+        ResponseMessage errorMessage = new ResponseMessage(e.getMessage());
+        return ResponseEntity.status(NOT_FOUND).body(errorMessage);
+    }
+
+    @ExceptionHandler(NoProjectFoundByMemberException.class)
+    public ResponseEntity<ResponseMessage> handleNoProjectByMemberException(NoProjectFoundByMemberException e) {
+        ResponseMessage errorMessage = new ResponseMessage(e.getMessage());
+        return ResponseEntity.status(NOT_FOUND).body(errorMessage);
     }
 }
