@@ -52,7 +52,7 @@ public class CommentService {
                 .task(task)
                 .build();
 
-        comment = commentRepository.save(comment);
+        commentRepository.save(comment);
         return new CommentDto(comment.getCommentContent(), comment.getMember().getMemberId(), comment.getTask().getTaskId());
     }
 
