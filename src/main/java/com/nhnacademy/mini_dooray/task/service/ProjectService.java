@@ -32,7 +32,6 @@ public class ProjectService {
     }
 
     public ProjectDetail getProjectDetailById(Long projectId) {
-        projectRepository.findById(projectId);
         Project foundProject = projectRepository.findById(projectId)
                 .orElseThrow(() -> new NoSuchProjectFoundException("project not found"));
 

@@ -28,12 +28,19 @@ public class CommentService {
 
     public List<CommentDto> getCommentsByTaskId(Long taskId) {
         taskRepository.findById(taskId).orElseThrow(() -> new TaskNotFoundException("Task not found with id: " + taskId));
-        return commentRepository.findAllByTaskId(taskId);
+        List<Comment> comments = commentRepository.findAllByTask_TaskId(taskId);
+        return comments.stream()
+                .map(comment -> new CommentDto(
+                        comment.getCommentContent(),
+                        comment.getMember().getMemberId(),
+                        comment.getTask().getTaskId()
+                ))
+                .toList();
     }
 
     public CommentDto addComment(CommentDto commentDto) {
 
-        Member member = memberRepository.findById(Long.valueOf((commentDto.getMemberId())))
+        Member member = memberRepository.findById(commentDto.getMemberId())
                 .orElseThrow(() -> new MemberNotFoundException("Member not found with id: " + commentDto.getMemberId()));
 
         Task task = taskRepository.findById(commentDto.getTaskId())

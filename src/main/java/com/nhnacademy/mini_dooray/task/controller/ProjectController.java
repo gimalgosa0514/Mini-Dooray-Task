@@ -46,7 +46,7 @@ public class ProjectController {
         List<String> memberIds = projectDetail.getMembers().stream()
                 .map(member -> member.getMemberId())
                 .collect(Collectors.toList());
-
+      
         ProjectDetailResponse projectDetailResponse = new ProjectDetailResponse(
                 project.getProjectName(), project.getProjectStatus(), project.getProjectManagerId(),
                 projectDetail.getTasks(), memberIds);
