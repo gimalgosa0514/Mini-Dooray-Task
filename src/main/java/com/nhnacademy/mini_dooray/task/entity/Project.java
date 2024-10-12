@@ -20,7 +20,6 @@ public class Project {
 
     private String projectName;
     private ProjectStatus projectStatus;
-
     private String projectManagerId;
 
     public Project(String projectName, ProjectStatus projectStatus, String projectManagerId) {
