@@ -19,7 +19,7 @@ import static jakarta.persistence.FetchType.LAZY;
 public class ProjectMember {
 
     @Id
-    private String projectMemberId;
+    private Long projectMemberId;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "member_id")
@@ -28,4 +28,9 @@ public class ProjectMember {
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "project_id")
     private Project project;
+
+    public ProjectMember(Member member, Project project) {
+        this.member = member;
+        this.project = project;
+    }
 }

@@ -3,8 +3,7 @@ package com.nhnacademy.mini_dooray.task.domain;
 import lombok.Getter;
 
 @Getter
-public class ProjectCreateRequest {
+public class projectMemberRequest {
 
-    private String projectName;
     private String memberId;
 }
