@@ -26,9 +26,6 @@ import static org.springframework.http.HttpStatus.*;
 public class ProjectController {
 
     private final ProjectService projectService;
-    private final ProjectRepository projectRepository;
-    private final TaskRepository taskRepository;
-    private final ProjectMemberRepository projectMemberRepository;
 
     /**
      * 프로젝트 생성
@@ -46,7 +43,7 @@ public class ProjectController {
      * 프로젝트 Id로 프로젝트 상세 조회
      */
     @GetMapping("/{projectId}")
-    public ResponseEntity<ProjectDetailResponse> getProjectByProjectId(@PathVariable Long projectId) {
+    public ResponseEntity<ProjectDetailResponse> getProjectDetailByProjectId(@PathVariable Long projectId) {
         ProjectDetail projectDetail = projectService.getProjectDetailById(projectId);
         Project project = projectDetail.getProject();
         List<String> memberIds = projectDetail.getMembers().stream()

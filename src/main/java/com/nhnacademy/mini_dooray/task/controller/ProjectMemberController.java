@@ -10,6 +10,7 @@ import com.nhnacademy.mini_dooray.task.exception.NoSuchProjectFoundException;
 import com.nhnacademy.mini_dooray.task.repository.MemberRepository;
 import com.nhnacademy.mini_dooray.task.repository.ProjectMemberRepository;
 import com.nhnacademy.mini_dooray.task.repository.ProjectRepository;
+import com.nhnacademy.mini_dooray.task.service.ProjectMemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +27,7 @@ import static org.springframework.http.HttpStatus.OK;
 @RequestMapping("/project")
 public class ProjectMemberController {
 
+    private final ProjectMemberService projectMemberService;
     private final ProjectRepository projectRepository;
     private final MemberRepository memberRepository;
     private final ProjectMemberRepository projectMemberRepository;
@@ -35,7 +37,7 @@ public class ProjectMemberController {
      */
     @GetMapping("/member/{memberId}")
     public ResponseEntity<List<ProjectListResponse>> getProjectsByMemberId(@PathVariable String memberId) {
-        List<ProjectMember> projectMembers = projectMemberRepository.findByMember_MemberId(memberId);
+        List<ProjectMember> projectMembers = projectMemberService.getProjectMembersByMemberId(memberId);
         List<ProjectListResponse> projects = projectMembers.stream()
                 .map(projectMember -> new ProjectListResponse(projectMember.getProject().getProjectName(), projectMember.getProject().getProjectStatus()))
                 .collect(Collectors.toList());
