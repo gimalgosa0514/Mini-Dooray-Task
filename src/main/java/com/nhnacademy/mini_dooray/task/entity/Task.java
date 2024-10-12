@@ -1,10 +1,8 @@
 package com.nhnacademy.mini_dooray.task.entity;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import static jakarta.persistence.FetchType.LAZY;
 import static jakarta.persistence.GenerationType.*;
@@ -23,15 +21,20 @@ public class Task {
     private String taskTitle;
     private String taskContent;
 
-    @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "member_id")
-    private Member member;
+    private String memberId;
 
-    @ManyToOne(fetch = LAZY)
+    @ManyToOne
     @JoinColumn(name = "project_id")
     private Project project;
 
-    @OneToOne(fetch = LAZY)
+    @OneToOne
     @JoinColumn(name = "milestone_id")
     private Milestone milestone;
+
+    public Task(Project project,String memberId,String taskTitle,String taskContent){
+        this.project=project;
+        this.memberId=memberId;
+        this.taskTitle=taskTitle;
+        this.taskContent=taskContent;
+    }
 }
