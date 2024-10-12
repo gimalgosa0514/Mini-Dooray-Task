@@ -47,10 +47,10 @@ public class ProjectController {
                 .map(member -> member.getMemberId())
                 .collect(Collectors.toList());
 
-        ProjectDetailResponse responseProject = new ProjectDetailResponse(
+        ProjectDetailResponse projectDetailResponse = new ProjectDetailResponse(
                 project.getProjectName(), project.getProjectStatus(), project.getProjectManagerId(),
                 projectDetail.getTasks(), memberIds);
 
-        return ResponseEntity.status(OK).body(responseProject);
+        return ResponseEntity.status(OK).body(projectDetailResponse);
     }
 }
