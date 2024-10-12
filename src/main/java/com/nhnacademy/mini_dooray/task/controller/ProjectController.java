@@ -1,8 +1,6 @@
 package com.nhnacademy.mini_dooray.task.controller;
 
-import com.nhnacademy.mini_dooray.task.entity.Member;
-import com.nhnacademy.mini_dooray.task.entity.ProjectMember;
-import com.nhnacademy.mini_dooray.task.exception.NoSuchProjectFoundException;
+import com.nhnacademy.mini_dooray.task.domain.ProjectDetail;
 import com.nhnacademy.mini_dooray.task.domain.ProjectCreateRequest;
 import com.nhnacademy.mini_dooray.task.domain.ProjectDetailResponse;
 import com.nhnacademy.mini_dooray.task.domain.ResponseMessage;
@@ -19,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.nhnacademy.mini_dooray.task.entity.ProjectStatus.*;
 import static org.springframework.http.HttpStatus.*;
 
 @Slf4j
@@ -50,18 +47,15 @@ public class ProjectController {
      */
     @GetMapping("/{projectId}")
     public ResponseEntity<ProjectDetailResponse> getProjectByProjectId(@PathVariable Long projectId) {
-        Project foundProject = projectRepository.findById(projectId)
-                .orElseThrow(() -> new NoSuchProjectFoundException("project not found"));
-
-        List<ProjectMember> projectMembers = projectMemberRepository.findByProject_ProjectId(projectId);
-        List<Member> members = projectMembers.stream()
-                .map(projectMember -> projectMember.getMember())
+        ProjectDetail projectDetail = projectService.getProjectDetailById(projectId);
+        Project project = projectDetail.getProject();
+        List<String> memberIds = projectDetail.getMembers().stream()
+                .map(member -> member.getMemberId())
                 .collect(Collectors.toList());
 
-
         ProjectDetailResponse responseProject = new ProjectDetailResponse(
-                foundProject.getProjectName(), foundProject.getProjectStatus(), foundProject.getProjectManagerId(),
-                null,null);
+                project.getProjectName(), project.getProjectStatus(), project.getProjectManagerId(),
+                projectDetail.getTasks(), memberIds);
 
         return ResponseEntity.status(OK).body(responseProject);
     }
