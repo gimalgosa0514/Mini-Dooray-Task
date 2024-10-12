@@ -1,6 +1,5 @@
 package com.nhnacademy.mini_dooray.task.entity;
 
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
