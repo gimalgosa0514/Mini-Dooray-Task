@@ -27,7 +27,7 @@ public class ProjectMemberController {
      */
     @GetMapping("/member/{memberId}")
     public ResponseEntity<List<ProjectListResponse>> getProjectsByMemberId(@PathVariable String memberId) {
-        List<ProjectMember> projectMembers = projectMemberService.getProjectMembersByMemberId(memberId);
+        List<ProjectMember> projectMembers = projectMemberService.getProjectMembers(memberId);
 
         List<ProjectListResponse> projects = projectMembers.stream()
                 .map(projectMember -> new ProjectListResponse(

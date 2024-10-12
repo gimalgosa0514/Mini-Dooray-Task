@@ -21,7 +21,7 @@ public class ProjectMemberService {
     private final ProjectRepository projectRepository;
     private final MemberRepository memberRepository;
 
-    public List<ProjectMember> getProjectMembersByMemberId(String memberId) {
+    public List<ProjectMember> getProjectMembers(String memberId) {
         if (projectMemberRepository.existsByMember_MemberId(memberId)) {
             return projectMemberRepository.findByMember_MemberId(memberId);
         } else {
@@ -30,12 +30,10 @@ public class ProjectMemberService {
     }
 
     public void saveProjectMember(Long projectId, String memberId) {
-        if (projectRepository.existsById(projectId)) {
-            Project foundProject = projectRepository.findById(projectId).get();
-            Member requestMember = memberRepository.findById(memberId).get();
-            projectMemberRepository.save(new ProjectMember(requestMember, foundProject));
-        } else {
-            throw new NoSuchProjectFoundException("project not found");
-        }
+        Project foundProject = projectRepository.findById(projectId)
+                .orElseThrow(() -> new NoSuchProjectFoundException("project not found"));
+
+        Member requestMember = memberRepository.findById(memberId).get();
+        projectMemberRepository.save(new ProjectMember(requestMember, foundProject));
     }
 }
