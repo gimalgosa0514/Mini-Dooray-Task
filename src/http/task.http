@@ -1,0 +1,31 @@
+### 프로젝트 업무 목록 조회
+GET http://localhost:8082/project/1/task
+
+
+### 업무 생성
+POST http://localhost:8082/project/1/task
+Content-Type: application/json
+
+{
+  "memberId": "test",
+  "taskTitle": "테스트 제목",
+  "taskContent": "업무에 대한 내용들입니다."
+}
+
+
+### 업무 조회(상세보기)
+GET http://localhost:8082/project/1/task/1
+
+
+### 업무 수정
+PUT http://localhost:8082/project/1/task/1
+Content-Type: application/json
+
+{
+  "taskTitle": "수정한 제목입니다",
+  "taskContent": "내용이 수정되었습니다."
+}
+
+
+### 업무 삭제
+DELETE http://localhost:8082/project/1/task/1

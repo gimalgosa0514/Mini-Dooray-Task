@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import static jakarta.persistence.FetchType.*;
+import static jakarta.persistence.GenerationType.*;
 
 @Entity
 @Getter
@@ -14,7 +15,7 @@ import static jakarta.persistence.FetchType.*;
 public class Comment {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = IDENTITY)
     private Long commentId;
 
     private String commentContent;

@@ -6,6 +6,7 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 import static jakarta.persistence.FetchType.*;
+import static jakarta.persistence.GenerationType.*;
 
 @Entity
 @Getter
