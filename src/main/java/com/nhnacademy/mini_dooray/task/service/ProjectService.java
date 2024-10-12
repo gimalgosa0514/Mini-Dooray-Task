@@ -1,6 +1,5 @@
 package com.nhnacademy.mini_dooray.task.service;
 
-import com.nhnacademy.mini_dooray.task.domain.ProjectDetail;
 import com.nhnacademy.mini_dooray.task.domain.ProjectDetailResponse;
 import com.nhnacademy.mini_dooray.task.domain.ProjectUpdateRequest;
 import com.nhnacademy.mini_dooray.task.entity.Member;
@@ -14,9 +13,6 @@ import com.nhnacademy.mini_dooray.task.repository.ProjectRepository;
 import com.nhnacademy.mini_dooray.task.repository.TaskRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.nhnacademy.mini_dooray.task.entity.ProjectStatus.ACTIVE;
 
