@@ -3,6 +3,7 @@ package com.nhnacademy.mini_dooray.task.controller;
 import com.nhnacademy.mini_dooray.task.domain.*;
 import com.nhnacademy.mini_dooray.task.entity.Member;
 import com.nhnacademy.mini_dooray.task.entity.Project;
+import com.nhnacademy.mini_dooray.task.exception.NoProjectFoundByMemberException;
 import com.nhnacademy.mini_dooray.task.service.ProjectService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -69,4 +70,6 @@ public class ProjectController {
 
         return ResponseEntity.status(OK).body(responseMessage);
     }
+
+
 }
