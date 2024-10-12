@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import static jakarta.persistence.FetchType.LAZY;
+import static jakarta.persistence.GenerationType.*;
 
 @Entity
 @Getter
@@ -15,7 +16,7 @@ import static jakarta.persistence.FetchType.LAZY;
 @Builder
 public class Tag {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = IDENTITY)
     private Long tagId;
 
     private String tagName;

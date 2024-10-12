@@ -7,6 +7,7 @@ import com.nhnacademy.mini_dooray.task.entity.Project;
 import com.nhnacademy.mini_dooray.task.entity.ProjectMember;
 import com.nhnacademy.mini_dooray.task.entity.Task;
 import com.nhnacademy.mini_dooray.task.exception.NoSuchProjectFoundException;
+import com.nhnacademy.mini_dooray.task.repository.MemberRepository;
 import com.nhnacademy.mini_dooray.task.repository.ProjectMemberRepository;
 import com.nhnacademy.mini_dooray.task.repository.ProjectRepository;
 import com.nhnacademy.mini_dooray.task.repository.TaskRepository;
@@ -25,10 +26,13 @@ public class ProjectService {
     private final ProjectRepository projectRepository;
     private final ProjectMemberRepository projectMemberRepository;
     private final TaskRepository taskRepository;
+    private final MemberRepository memberRepository;
 
-    public void saveProject(ProjectCreateRequest request) {
-        Project project = new Project(request.getProjectName(), ACTIVE, request.getMemberId());
-        projectRepository.save(project);
+    public void saveProject(String projectName, String memberId) {
+        Project newProject = new Project(projectName, ACTIVE, memberId);
+        Member managerMember = memberRepository.findById(memberId).get();
+        projectRepository.save(newProject);
+        projectMemberRepository.save(new ProjectMember(managerMember, newProject));
     }
 
     public ProjectDetail getProjectDetailById(Long projectId) {

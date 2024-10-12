@@ -29,7 +29,7 @@ public class ProjectController {
      */
     @PostMapping
     public ResponseEntity<ResponseMessage> createProject(@RequestBody ProjectCreateRequest request) {
-        projectService.saveProject(request);
+        projectService.saveProject(request.getProjectName(), request.getMemberId());
 
         ResponseMessage responseMessage = new ResponseMessage("생성 성공");
 
