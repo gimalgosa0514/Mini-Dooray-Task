@@ -30,7 +30,9 @@ public class ProjectMemberController {
         List<ProjectMember> projectMembers = projectMemberService.getProjectMembersByMemberId(memberId);
 
         List<ProjectListResponse> projects = projectMembers.stream()
-                .map(projectMember -> new ProjectListResponse(projectMember.getProject().getProjectName(), projectMember.getProject().getProjectStatus()))
+                .map(projectMember -> new ProjectListResponse(
+                        projectMember.getProject().getProjectId(), projectMember.getProject().getProjectName(),
+                        projectMember.getProject().getProjectStatus(), projectMember.getProject().getProjectManagerId()))
                 .collect(Collectors.toList());
 
         return ResponseEntity.status(OK).body(projects);

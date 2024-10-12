@@ -1,13 +1,11 @@
 package com.nhnacademy.mini_dooray.task.domain;
 
 import com.nhnacademy.mini_dooray.task.entity.ProjectStatus;
-import lombok.AllArgsConstructor;
+import lombok.Getter;
 
-@AllArgsConstructor
-public class ProjectListResponse {
+@Getter
+public class ProjectUpdateRequest {
 
-    private Long projectId;
     private String projectName;
     private ProjectStatus projectStatus;
-    private String projectManagerId;
 }
