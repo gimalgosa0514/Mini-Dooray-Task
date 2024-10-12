@@ -14,7 +14,7 @@ import static jakarta.persistence.FetchType.*;
 public class Comment {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long commentId;
 
     private String commentContent;
