@@ -18,7 +18,7 @@ import static org.springframework.http.HttpStatus.OK;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/project")
+@RequestMapping("/api/project")
 public class ProjectMemberController {
     private final ProjectMemberService projectMemberService;
 

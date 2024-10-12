@@ -1,9 +1,12 @@
 package com.nhnacademy.mini_dooray.task.domain;
 
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
-@RequiredArgsConstructor
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class ResponseMessage {
 
-    private final String message;
+    private String message;
 }

@@ -16,7 +16,7 @@ import static org.springframework.http.HttpStatus.*;
 
 @Slf4j
 @RestController
-@RequestMapping("/project")
+@RequestMapping("/api/project")
 @RequiredArgsConstructor
 public class ProjectController {
 

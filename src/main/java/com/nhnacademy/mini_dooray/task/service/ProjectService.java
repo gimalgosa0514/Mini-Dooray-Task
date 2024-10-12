@@ -22,14 +22,13 @@ public class ProjectService {
 
     private final ProjectRepository projectRepository;
     private final ProjectMemberRepository projectMemberRepository;
-    private final TaskRepository taskRepository;
+
     private final MemberRepository memberRepository;
 
     public void createProject(String projectName, String memberId) {
         Project newProject = new Project(projectName, ACTIVE, memberId);
-        Member managerMember = memberRepository.findById(memberId).get();
         projectRepository.save(newProject);
-        projectMemberRepository.save(new ProjectMember(managerMember, newProject));
+        projectMemberRepository.save(new ProjectMember(memberId, newProject));
     }
 
     public ProjectDetailResponse getProjectDetail(Long projectId) {
