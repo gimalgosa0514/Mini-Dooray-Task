@@ -51,4 +51,18 @@ public class TaskController {
 
         return new ResponseEntity<>(new ResponseMessage("삭제 성공"),HttpStatus.OK);
     }
+
+    // 진행 상황(Milestone) 등록
+    @PostMapping("/{id}/milestone")
+    public ResponseEntity<ResponseMessage> addTaskMilestone(@PathVariable long id,@RequestBody TaskMilestoneDto dto){
+        taskService.addTaskMilestone(id,dto);
+        return new ResponseEntity<>(new ResponseMessage("생성 성공"),HttpStatus.OK);
+    }
+
+    // 진행 상황 삭제
+    @DeleteMapping("/{id}/milestone")
+    public ResponseEntity<ResponseMessage> deleteTaskMilestone(@PathVariable long id){
+        taskService.deleteTaskMilestone(id);
+        return new ResponseEntity<>(new ResponseMessage("삭제 성공"),HttpStatus.OK);
+    }
 }

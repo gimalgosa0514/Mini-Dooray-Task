@@ -1,13 +1,12 @@
 package com.nhnacademy.mini_dooray.task.service;
 
-import com.nhnacademy.mini_dooray.task.dto.TaskAddDto;
-import com.nhnacademy.mini_dooray.task.dto.TaskDto;
-import com.nhnacademy.mini_dooray.task.dto.TaskEditDto;
-import com.nhnacademy.mini_dooray.task.dto.TaskListDto;
+import com.nhnacademy.mini_dooray.task.dto.*;
 import com.nhnacademy.mini_dooray.task.entity.Milestone;
 import com.nhnacademy.mini_dooray.task.entity.Project;
 import com.nhnacademy.mini_dooray.task.entity.Task;
+import com.nhnacademy.mini_dooray.task.exception.MilestoneNotFoundException;
 import com.nhnacademy.mini_dooray.task.exception.TaskNotFoundException;
+import com.nhnacademy.mini_dooray.task.repository.MilestoneRepository;
 import com.nhnacademy.mini_dooray.task.repository.ProjectRepository;
 import com.nhnacademy.mini_dooray.task.repository.TaskRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +21,7 @@ import java.util.Optional;
 public class TaskService {
     private final TaskRepository taskRepository;
     private final ProjectRepository projectRepository;
+    private final MilestoneRepository milestoneRepository;
 
     // 업무 목록 조회
     public TaskListDto getTaskList(long projectId){
@@ -97,5 +97,31 @@ public class TaskService {
     // 업무 삭제
     public void deleteTask(long taskId){
         taskRepository.deleteById(taskId);
+    }
+
+    // 진행 상황 등록
+    public void addTaskMilestone(long taskId,TaskMilestoneDto dto){
+        Optional<Task> optionalTask=taskRepository.findById(taskId);
+        if(optionalTask.isEmpty()){
+            throw new TaskNotFoundException();
+        }
+        Optional<Milestone> optionalMilestone=milestoneRepository.findById(dto.getMilestoneId());
+        if(optionalMilestone.isEmpty()){
+            throw new MilestoneNotFoundException();
+        }
+
+        Task task=optionalTask.get();
+        taskRepository.save(new Task(task.getTaskId(),task.getTaskTitle(),task.getTaskContent(),task.getMemberId(),task.getProject(),optionalMilestone.get()));
+    }
+
+    // 진행 상황 삭제
+    public void deleteTaskMilestone(long taskId){
+        Optional<Task> optional=taskRepository.findById(taskId);
+        if(optional.isEmpty()){
+            throw new TaskNotFoundException();
+        }
+
+        Task task=optional.get();
+        taskRepository.save(new Task(task.getTaskId(),task.getTaskTitle(),task.getTaskContent(),task.getMemberId(),task.getProject(),null));
     }
 }
