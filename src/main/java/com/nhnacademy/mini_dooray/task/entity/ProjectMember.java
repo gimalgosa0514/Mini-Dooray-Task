@@ -19,16 +19,15 @@ public class ProjectMember {
     @Id @GeneratedValue(strategy = IDENTITY)
     private Long projectMemberId;
 
-    @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "member_id")
-    private Member member;
+
+    private String memberId;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "project_id")
     private Project project;
 
-    public ProjectMember(Member member, Project project) {
-        this.member = member;
+    public ProjectMember(String memberId, Project project) {
+        this.memberId = memberId;
         this.project = project;
     }
 }

@@ -4,6 +4,7 @@ import com.nhnacademy.mini_dooray.task.domain.ProjectListResponse;
 import com.nhnacademy.mini_dooray.task.domain.ResponseMessage;
 import com.nhnacademy.mini_dooray.task.domain.projectMemberRequest;
 import com.nhnacademy.mini_dooray.task.entity.ProjectMember;
+import com.nhnacademy.mini_dooray.task.exception.NoProjectFoundByMemberException;
 import com.nhnacademy.mini_dooray.task.service.ProjectMemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,12 +14,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.http.HttpStatus.OK;
 
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/project")
+@RequestMapping("/api/project")
 public class ProjectMemberController {
     private final ProjectMemberService projectMemberService;
 
@@ -48,5 +50,10 @@ public class ProjectMemberController {
 
         ResponseMessage responseMessage = new ResponseMessage("등록 성공");
         return ResponseEntity.status(OK).body(responseMessage);
+    }
+
+    @ExceptionHandler(NoProjectFoundByMemberException.class)
+    public ResponseEntity<ResponseMessage> handleNoProjectFoundByMemberException(NoProjectFoundByMemberException e) {
+        return ResponseEntity.status(NOT_FOUND).body(new ResponseMessage(e.getMessage()));
     }
 }
