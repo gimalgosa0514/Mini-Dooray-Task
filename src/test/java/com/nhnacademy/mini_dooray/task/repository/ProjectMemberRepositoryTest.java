@@ -12,7 +12,7 @@ class ProjectMemberRepositoryTest {
     @Test
     @DisplayName("멤버 아이디로 해당 멤버가 속한 프로젝트 조회")
     public void findByMember_MemberId() {
-        
+
     }
 
 }
