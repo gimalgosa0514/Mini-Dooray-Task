@@ -2,9 +2,9 @@ package com.nhnacademy.mini_dooray.task.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import static jakarta.persistence.GenerationType.*;
 
@@ -12,14 +12,16 @@ import static jakarta.persistence.GenerationType.*;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class Project {
 
-    @Id @GeneratedValue(strategy = IDENTITY)
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
     private Long projectId;
 
+    @Setter
     private String projectName;
 
+    @Setter
     @Enumerated(EnumType.STRING)
     private ProjectStatus projectStatus;
 

@@ -13,6 +13,4 @@ public class ProjectDetailResponse {
     private String projectName;
     private ProjectStatus projectStatus;
     private String projectManagerId;
-    private List<Task> tasks;
-    private List<String> projectMembers;
 }

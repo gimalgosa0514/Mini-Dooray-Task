@@ -1,6 +1,7 @@
 package com.nhnacademy.mini_dooray.task.config;
 
 import com.nhnacademy.mini_dooray.task.domain.ResponseMessage;
+import com.nhnacademy.mini_dooray.task.exception.InvalidProjectStatusException;
 import com.nhnacademy.mini_dooray.task.exception.NoProjectFoundByMemberException;
 import com.nhnacademy.mini_dooray.task.exception.NoSuchProjectFoundException;
 import com.nhnacademy.mini_dooray.task.exception.TaskNotFoundException;
@@ -28,5 +29,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(TaskNotFoundException.class)
     public ResponseEntity<ResponseMessage> handleTaskNotFoundException(){
         return ResponseEntity.status(NOT_FOUND).body(new ResponseMessage("task is not found"));
+    }
+  
+    @ExceptionHandler(InvalidProjectStatusException.class)
+    public ResponseEntity<ResponseMessage> handleInvalidProjectStatusException(InvalidProjectStatusException e) {
+        ResponseMessage errorMessage = new ResponseMessage(e.getMessage());
+        return ResponseEntity.status(BAD_REQUEST).body(errorMessage);
     }
 }
