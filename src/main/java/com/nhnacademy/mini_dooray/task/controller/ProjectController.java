@@ -5,9 +5,6 @@ import com.nhnacademy.mini_dooray.task.domain.ProjectCreateRequest;
 import com.nhnacademy.mini_dooray.task.domain.ProjectDetailResponse;
 import com.nhnacademy.mini_dooray.task.domain.ResponseMessage;
 import com.nhnacademy.mini_dooray.task.entity.Project;
-import com.nhnacademy.mini_dooray.task.repository.ProjectMemberRepository;
-import com.nhnacademy.mini_dooray.task.repository.ProjectRepository;
-import com.nhnacademy.mini_dooray.task.repository.TaskRepository;
 import com.nhnacademy.mini_dooray.task.service.ProjectService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,9 +23,6 @@ import static org.springframework.http.HttpStatus.*;
 public class ProjectController {
 
     private final ProjectService projectService;
-    private final ProjectRepository projectRepository;
-    private final TaskRepository taskRepository;
-    private final ProjectMemberRepository projectMemberRepository;
 
     /**
      * 프로젝트 생성
@@ -46,17 +40,17 @@ public class ProjectController {
      * 프로젝트 Id로 프로젝트 상세 조회
      */
     @GetMapping("/{projectId}")
-    public ResponseEntity<ProjectDetailResponse> getProjectByProjectId(@PathVariable Long projectId) {
+    public ResponseEntity<ProjectDetailResponse> getProjectDetailByProjectId(@PathVariable Long projectId) {
         ProjectDetail projectDetail = projectService.getProjectDetailById(projectId);
         Project project = projectDetail.getProject();
         List<String> memberIds = projectDetail.getMembers().stream()
                 .map(member -> member.getMemberId())
                 .collect(Collectors.toList());
-
-        ProjectDetailResponse responseProject = new ProjectDetailResponse(
+      
+        ProjectDetailResponse projectDetailResponse = new ProjectDetailResponse(
                 project.getProjectName(), project.getProjectStatus(), project.getProjectManagerId(),
                 projectDetail.getTasks(), memberIds);
 
-        return ResponseEntity.status(OK).body(responseProject);
+        return ResponseEntity.status(OK).body(projectDetailResponse);
     }
 }
