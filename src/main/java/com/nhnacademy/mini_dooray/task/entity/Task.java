@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import static jakarta.persistence.FetchType.LAZY;
+import static jakarta.persistence.GenerationType.*;
 
 @Entity
 @Getter
@@ -14,7 +15,7 @@ import static jakarta.persistence.FetchType.LAZY;
 public class Task {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = IDENTITY)
     private Long taskId;
 
     private String taskTitle;

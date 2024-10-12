@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 import static jakarta.persistence.FetchType.*;
+import static jakarta.persistence.GenerationType.*;
 
 @Entity
 @Getter
@@ -18,7 +19,7 @@ import static jakarta.persistence.FetchType.*;
 public class Milestone {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = IDENTITY)
     private Long milestoneId;
 
     private String milestoneName;

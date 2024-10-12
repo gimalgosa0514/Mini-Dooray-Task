@@ -1,15 +1,13 @@
 package com.nhnacademy.mini_dooray.task.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import static jakarta.persistence.FetchType.LAZY;
+import static jakarta.persistence.GenerationType.*;
 
 @Entity
 @Getter
@@ -18,8 +16,8 @@ import static jakarta.persistence.FetchType.LAZY;
 @Builder
 public class ProjectMember {
 
-    @Id
-    private String projectMemberId;
+    @Id @GeneratedValue(strategy = IDENTITY)
+    private Long projectMemberId;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "member_id")
@@ -28,4 +26,9 @@ public class ProjectMember {
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "project_id")
     private Project project;
+
+    public ProjectMember(Member member, Project project) {
+        this.member = member;
+        this.project = project;
+    }
 }
