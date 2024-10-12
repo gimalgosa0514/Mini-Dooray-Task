@@ -1,8 +1,6 @@
 package com.nhnacademy.mini_dooray.task.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,7 +17,10 @@ public class Project {
     private Long projectId;
 
     private String projectName;
+
+    @Enumerated(EnumType.STRING)
     private ProjectStatus projectStatus;
+
     private String projectManagerId;
 
     public Project(String projectName, ProjectStatus projectStatus, String projectManagerId) {
