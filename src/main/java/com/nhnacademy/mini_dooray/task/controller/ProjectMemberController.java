@@ -20,7 +20,6 @@ import static org.springframework.http.HttpStatus.OK;
 @RequiredArgsConstructor
 @RequestMapping("/project")
 public class ProjectMemberController {
-
     private final ProjectMemberService projectMemberService;
 
     /**
@@ -43,7 +42,6 @@ public class ProjectMemberController {
     @PostMapping("/{projectId}/member")
     public ResponseEntity<ResponseMessage> createProjectMember(
             @PathVariable Long projectId, @RequestBody projectMemberRequest request) {
-
         projectMemberService.saveProjectMember(projectId, request.getMemberId());
 
         ResponseMessage responseMessage = new ResponseMessage("등록 성공");
