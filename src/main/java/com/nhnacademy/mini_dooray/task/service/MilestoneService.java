@@ -34,14 +34,14 @@ public class MilestoneService {
                 .toList();
     }
 
-    public MilestoneDto addMilestoneToProject(Long projectId, MilestoneRequest milestoneDto) {
+    public MilestoneDto addMilestoneToProject(Long projectId, MilestoneRequest milestoneRequest) {
         Project project = projectRepository.findById(projectId)
                 .orElseThrow(() -> new NoSuchProjectFoundException("Project not found with id: " + projectId));
 
         Milestone milestone = Milestone.builder()
-                .milestoneName(milestoneDto.getMilestoneName())
-                .milestoneStartline(milestoneDto.getMilestoneStartline())
-                .milestoneDeadline(milestoneDto.getMilestoneDeadline())
+                .milestoneName(milestoneRequest.getMilestoneName())
+                .milestoneStartline(milestoneRequest.getMilestoneStartline())
+                .milestoneDeadline(milestoneRequest.getMilestoneDeadline())
                 .project(project)
                 .build();
 
