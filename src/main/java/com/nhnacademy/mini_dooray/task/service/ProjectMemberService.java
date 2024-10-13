@@ -35,4 +35,11 @@ public class ProjectMemberService {
             throw new NoSuchProjectFoundException("project not found");
         }
     }
+
+    public List<ProjectMember> getMembersInProject(Long projectId) {
+        if (!projectRepository.existsById(projectId)) {
+            throw new NoSuchProjectFoundException("project not found");
+        }
+        return projectMemberRepository.findByProject_ProjectId(projectId);
+    }
 }

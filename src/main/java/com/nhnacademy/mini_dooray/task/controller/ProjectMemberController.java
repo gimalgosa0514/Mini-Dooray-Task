@@ -2,7 +2,7 @@ package com.nhnacademy.mini_dooray.task.controller;
 
 import com.nhnacademy.mini_dooray.task.domain.ProjectListResponse;
 import com.nhnacademy.mini_dooray.task.domain.ResponseMessage;
-import com.nhnacademy.mini_dooray.task.domain.projectMemberRequest;
+import com.nhnacademy.mini_dooray.task.domain.ProjectMemberDto;
 import com.nhnacademy.mini_dooray.task.entity.ProjectMember;
 import com.nhnacademy.mini_dooray.task.exception.NoProjectFoundByMemberException;
 import com.nhnacademy.mini_dooray.task.service.ProjectMemberService;
@@ -43,9 +43,19 @@ public class ProjectMemberController {
     /**
      * project Id에 해당하는 프로젝트에 멤버 등록
      */
+
+    @GetMapping("/{projectId}")
+    public ResponseEntity<List<ProjectMemberDto>> getProjectMember(@PathVariable Long projectId) {
+        List<ProjectMember> list = projectMemberService.getMembersInProject(projectId);
+
+        List<ProjectMemberDto> projectMemberDtoList = list.stream().map(projectMember -> new ProjectMemberDto(projectMember.getMemberId()))
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok().body(projectMemberDtoList);
+    }
     @PostMapping("/{projectId}/member")
     public ResponseEntity<ResponseMessage> createProjectMember(
-            @PathVariable Long projectId, @RequestBody projectMemberRequest request) {
+            @PathVariable Long projectId, @RequestBody ProjectMemberDto request) {
         projectMemberService.saveProjectMember(projectId, request.getMemberId());
 
         ResponseMessage responseMessage = new ResponseMessage("등록 성공");
