@@ -1,10 +1,8 @@
 package com.nhnacademy.mini_dooray.task.entity;
 
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.*;
 
-import static jakarta.persistence.FetchType.LAZY;
 import static jakarta.persistence.GenerationType.*;
 
 @Entity

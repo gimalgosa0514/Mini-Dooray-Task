@@ -1,0 +1,29 @@
+### 프로젝트 생성
+POST http://localhost:8082/api/project
+Content-Type: application/json
+
+{
+  "projectName": "test",
+  "memberId": "manager"
+}
+
+
+### 프로젝트 수정
+PUT http://localhost:8082/api/project/1
+Content-Type: application/json
+
+{
+  "projectName": "modify",
+  "projectStatus": "SUSPENDED"
+}
+
+
+### 프로젝트 아이디로 상세 조회
+GET http://localhost:8082/api/project/1
+
+
+### 프로젝트 삭제
+DELETE http://localhost:8082/api/project/1
+
+
+

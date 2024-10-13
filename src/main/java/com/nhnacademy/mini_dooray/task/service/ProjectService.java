@@ -10,11 +10,13 @@ import com.nhnacademy.mini_dooray.task.repository.ProjectRepository;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import static com.nhnacademy.mini_dooray.task.entity.ProjectStatus.ACTIVE;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class ProjectService {
 
     private final ProjectRepository projectRepository;
@@ -26,6 +28,7 @@ public class ProjectService {
         projectMemberRepository.save(new ProjectMember(memberId, newProject));
     }
 
+    @Transactional(readOnly = true)
     public ProjectDetailResponse getProjectDetail(Long projectId) {
         Project foundProject = getProjectById(projectId);
 
@@ -46,6 +49,7 @@ public class ProjectService {
 
     public void deleteProject(Long projectId) {
         Project foundProject = getProjectById(projectId);
+        projectMemberRepository.deleteAllByProject_ProjectId(projectId);
         projectRepository.delete(foundProject);
     }
 
