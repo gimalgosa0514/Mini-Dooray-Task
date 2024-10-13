@@ -19,7 +19,7 @@ public class ProjectMemberService {
     private final ProjectRepository projectRepository;
 
 
-    public List<ProjectMember> getProjectMembersByMemberId(String memberId) {
+    public List<ProjectMember> getProjectMembers(String memberId) {
         if (projectMemberRepository.existsByMemberId(memberId)) {
             return projectMemberRepository.findByMemberId(memberId);
         } else {
