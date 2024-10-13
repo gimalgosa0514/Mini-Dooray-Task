@@ -44,7 +44,7 @@ public class ProjectMemberController {
      * project Id에 해당하는 프로젝트에 멤버 등록
      */
 
-    @GetMapping("/{projectId}")
+    @GetMapping("/{projectId}/member")
     public ResponseEntity<List<ProjectMemberDto>> getProjectMember(@PathVariable Long projectId) {
         List<ProjectMember> list = projectMemberService.getMembersInProject(projectId);
 
