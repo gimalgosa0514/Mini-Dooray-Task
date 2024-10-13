@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
-@RequestMapping("/project/{projectId}/task")
+@RequestMapping("/api/project/{projectId}/task")
 @RequiredArgsConstructor
 public class TaskController {
     private final TaskService taskService;
