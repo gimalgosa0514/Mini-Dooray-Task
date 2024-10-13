@@ -40,6 +40,12 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(NOT_FOUND).body(errorMessage);
     }
 
+    @ExceptionHandler(TagDuplicateException.class)
+    public ResponseEntity<ResponseMessage> handleTagDuplicateException(TagDuplicateException e) {
+        ResponseMessage errorMessage = new ResponseMessage(e.getMessage());
+        return ResponseEntity.status(BAD_REQUEST).body(errorMessage);
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ResponseMessage> handleException(Exception e) {
         ResponseMessage errorMessage = new ResponseMessage(e.getMessage());

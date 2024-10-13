@@ -8,17 +8,19 @@ import com.nhnacademy.mini_dooray.task.repository.ProjectMemberRepository;
 import com.nhnacademy.mini_dooray.task.repository.ProjectRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class ProjectMemberService {
 
     private final ProjectMemberRepository projectMemberRepository;
     private final ProjectRepository projectRepository;
 
-
+    @Transactional(readOnly = true)
     public List<ProjectMember> getProjectMembers(String memberId) {
         if (projectMemberRepository.existsByMemberId(memberId)) {
             return projectMemberRepository.findByMemberId(memberId);
