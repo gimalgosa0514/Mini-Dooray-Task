@@ -16,7 +16,7 @@ import static org.springframework.http.HttpStatus.*;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/project/{projectId}/tag")
+@RequestMapping("/api/project/{projectId}/tag")
 public class TagController {
 
     private final TagService tagService;

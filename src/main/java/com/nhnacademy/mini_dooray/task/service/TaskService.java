@@ -24,11 +24,11 @@ public class TaskService {
     private final MilestoneRepository milestoneRepository;
 
     // 업무 목록 조회
-    public TaskListDto getTaskList(long projectId){
+    public List<TaskDto> getTaskList(long projectId){
         List<TaskDto> list=new ArrayList<>();
 
         for(Task task:taskRepository.findByProject_ProjectId(projectId)){
-            TaskDto dto=new TaskDto(task.getTaskId(),task.getMemberId(),task.getTaskTitle(),task.getTaskContent());
+            TaskDto dto = new TaskDto(task.getTaskId(),task.getMemberId(),task.getTaskTitle(),task.getTaskContent());
             if(task.getMilestone()!=null){
                 dto.setMilestoneName(task.getMilestone().getMilestoneName());
                 dto.setMilestoneStartline(task.getMilestone().getMilestoneStartline());
@@ -37,7 +37,7 @@ public class TaskService {
             list.add(dto);
         }
 
-        return new TaskListDto(list);
+        return list;
     }
 
     // 업무 상세 조회

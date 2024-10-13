@@ -1,5 +1,5 @@
 ### 프로젝트 업무 목록 조회
-GET http://localhost:8082/project/1/task
+GET http://localhost:8082/api/project/1/task
 
 
 ### 업무 생성
