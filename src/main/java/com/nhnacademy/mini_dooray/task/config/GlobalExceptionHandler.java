@@ -36,4 +36,10 @@ public class GlobalExceptionHandler {
         ResponseMessage errorMessage = new ResponseMessage(e.getMessage());
         return ResponseEntity.status(BAD_REQUEST).body(errorMessage);
     }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ResponseMessage> handleException(Exception e) {
+        ResponseMessage errorMessage = new ResponseMessage(e.getMessage());
+        return ResponseEntity.status(BAD_REQUEST).body(errorMessage);
+    }
 }
