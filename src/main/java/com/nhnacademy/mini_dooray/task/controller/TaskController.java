@@ -2,7 +2,6 @@ package com.nhnacademy.mini_dooray.task.controller;
 
 import com.nhnacademy.mini_dooray.task.domain.ResponseMessage;
 import com.nhnacademy.mini_dooray.task.dto.*;
-import com.nhnacademy.mini_dooray.task.entity.Task;
 import com.nhnacademy.mini_dooray.task.service.TaskService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
