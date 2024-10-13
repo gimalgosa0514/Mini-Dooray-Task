@@ -25,6 +25,7 @@ public class Project {
     @Enumerated(EnumType.STRING)
     private ProjectStatus projectStatus;
 
+
     private String projectManagerId;
 
     public Project(String projectName, ProjectStatus projectStatus, String projectManagerId) {

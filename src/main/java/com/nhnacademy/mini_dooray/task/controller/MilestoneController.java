@@ -13,7 +13,7 @@ import static org.springframework.http.HttpStatus.OK;
 
 @Slf4j
 @RestController
-@RequestMapping("/project/{projectId}")
+@RequestMapping("/api/project/{projectId}")
 public class MilestoneController {
     private final MilestoneService milestoneService;
 

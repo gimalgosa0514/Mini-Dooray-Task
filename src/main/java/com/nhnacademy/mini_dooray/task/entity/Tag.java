@@ -24,4 +24,9 @@ public class Tag {
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "project_id")
     private Project project;
+
+    public Tag(String tagName, Project project) {
+        this.tagName = tagName;
+        this.project = project;
+    }
 }

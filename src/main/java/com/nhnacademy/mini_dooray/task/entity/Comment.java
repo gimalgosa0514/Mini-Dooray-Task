@@ -20,9 +20,8 @@ public class Comment {
 
     private String commentContent;
 
-    @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "member_id")
-    private Member member;
+
+    private String memberId;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "task_id")

@@ -32,7 +32,7 @@ public class CommentService {
         return comments.stream()
                 .map(comment -> new CommentDto(
                         comment.getCommentContent(),
-                        comment.getMember().getMemberId(),
+                        comment.getMemberId(),
                         comment.getTask().getTaskId()
                 ))
                 .toList();
@@ -40,20 +40,17 @@ public class CommentService {
 
     public CommentDto addComment(CommentDto commentDto) {
 
-        Member member = memberRepository.findById(commentDto.getMemberId())
-                .orElseThrow(() -> new MemberNotFoundException("Member not found with id: " + commentDto.getMemberId()));
-
         Task task = taskRepository.findById(commentDto.getTaskId())
                 .orElseThrow(() -> new TaskNotFoundException("Task not found with id: " + commentDto.getTaskId()));
 
         Comment comment = Comment.builder()
                 .commentContent(commentDto.getCommentContent())
-                .member(member)
+                .memberId(commentDto.getMemberId())
                 .task(task)
                 .build();
 
-        commentRepository.save(comment);
-        return new CommentDto(comment.getCommentContent(), comment.getMember().getMemberId(), comment.getTask().getTaskId());
+        comment = commentRepository.save(comment);
+        return new CommentDto(comment.getCommentContent(), comment.getMemberId(), comment.getTask().getTaskId());
     }
 
     public CommentDto updateComment(Long commentId, CommentDto commentDto) {
@@ -63,7 +60,7 @@ public class CommentService {
         comment.setCommentContent(commentDto.getCommentContent());
         commentRepository.save(comment);
 
-        return new CommentDto(comment.getCommentContent(), comment.getMember().getMemberId(), comment.getTask().getTaskId());
+        return new CommentDto(comment.getCommentContent(), comment.getMemberId(), comment.getTask().getTaskId());
     }
 
     public void removeComment(Long commentId) {
