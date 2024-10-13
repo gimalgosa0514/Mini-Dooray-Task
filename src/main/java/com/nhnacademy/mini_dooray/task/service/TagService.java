@@ -1,7 +1,9 @@
 package com.nhnacademy.mini_dooray.task.service;
 
 import com.nhnacademy.mini_dooray.task.domain.TagListResponse;
+import com.nhnacademy.mini_dooray.task.entity.Project;
 import com.nhnacademy.mini_dooray.task.entity.Tag;
+import com.nhnacademy.mini_dooray.task.exception.NoSuchProjectFoundException;
 import com.nhnacademy.mini_dooray.task.exception.TagNotFoundException;
 import com.nhnacademy.mini_dooray.task.repository.ProjectRepository;
 import com.nhnacademy.mini_dooray.task.repository.TagRepository;
@@ -30,5 +32,17 @@ public class TagService {
         } else {
             throw new TagNotFoundException("tag not found");
         }
+    }
+
+    public void addTag(Long projectId, String tagName) {
+        Project foundProject = projectRepository.findById(projectId)
+                .orElseThrow(() -> new NoSuchProjectFoundException("project not found"));
+        tagRepository.save(new Tag(tagName, foundProject));
+    }
+
+    public void deleteTag(Long tagId) {
+        Tag foundTag = tagRepository.findById(tagId)
+                .orElseThrow(() -> new TagNotFoundException("tag not found"));
+        tagRepository.delete(foundTag);
     }
 }
