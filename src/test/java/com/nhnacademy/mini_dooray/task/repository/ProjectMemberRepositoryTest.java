@@ -4,7 +4,10 @@ import com.nhnacademy.mini_dooray.task.entity.ProjectMember;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,8 +15,8 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
 
-@SpringBootTest
-@Transactional
+@DataJpaTest
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 class ProjectMemberRepositoryTest {
 
     @Autowired
@@ -22,6 +25,7 @@ class ProjectMemberRepositoryTest {
     @Test
     @DisplayName("멤버 아이디로 해당 멤버가 속한 프로젝트 리스트 조회")
     @Sql("project-member-repository-test.sql")
+
     public void findByMember_MemberId() {
 
         List<ProjectMember> projectMembersByAaa = projectMemberRepository.findByMemberId("aaa");
