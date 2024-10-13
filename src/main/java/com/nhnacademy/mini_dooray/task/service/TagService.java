@@ -9,17 +9,20 @@ import com.nhnacademy.mini_dooray.task.repository.ProjectRepository;
 import com.nhnacademy.mini_dooray.task.repository.TagRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class TagService {
 
     private final ProjectRepository projectRepository;
     private final TagRepository tagRepository;
 
+    @Transactional(readOnly = true)
     public List<TagListResponse> getTags(Long projectId) {
         if (tagRepository.existsByProject_ProjectId(projectId)) {
             List<Tag> foundTags = tagRepository.findByProject_ProjectId(projectId);
