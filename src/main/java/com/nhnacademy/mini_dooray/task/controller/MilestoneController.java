@@ -30,11 +30,7 @@ public class MilestoneController {
     public ResponseEntity<ResponseMessage> addMilestoneToProject(@PathVariable Long projectId, @RequestBody MilestoneDto milestoneDto) {
         milestoneService.addMilestoneToProject(projectId, milestoneDto);
         ResponseMessage responseMessage = new ResponseMessage("등록 성공");
-        return ResponseEntity
-                .status(OK)
-                .contentType(org.springframework.http.MediaType.APPLICATION_JSON) // JSON으로 응답
-                .body(responseMessage);
-//        return ResponseEntity.status(OK).body(responseMessage);
+        return ResponseEntity.status(OK).body(responseMessage);
     }
 
     @PutMapping("/milestone/{milestoneId}")
