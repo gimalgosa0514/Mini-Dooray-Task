@@ -1,8 +1,10 @@
 package com.nhnacademy.mini_dooray.task.service;
 
 import com.nhnacademy.mini_dooray.task.domain.MilestoneDto;
+import com.nhnacademy.mini_dooray.task.domain.MilestoneRequest;
 import com.nhnacademy.mini_dooray.task.entity.Milestone;
 import com.nhnacademy.mini_dooray.task.entity.Project;
+import com.nhnacademy.mini_dooray.task.entity.ProjectStatus;
 import com.nhnacademy.mini_dooray.task.exception.MilestoneNotFoundException;
 import com.nhnacademy.mini_dooray.task.exception.NoSuchProjectFoundException;
 import com.nhnacademy.mini_dooray.task.repository.MilestoneRepository;
@@ -65,15 +67,20 @@ class MilestoneServiceTest {
     @Test
     void addMilestoneToProject_Success() {
         Long projectId = 1L;
-        Project project = new Project();
-        MilestoneDto milestoneDto = new MilestoneDto(
+        Project project = new Project(1L,"project test", ProjectStatus.ACTIVE,"test");
+        MilestoneRequest milestoneRequest = new MilestoneRequest(
                 "New Milestone",
                 LocalDateTime.of(2024, 10, 1, 0, 0),
                 LocalDateTime.of(2024, 12, 31, 23, 59)
         );
 
         when(projectRepository.findById(projectId)).thenReturn(Optional.of(project));
-        MilestoneDto result = milestoneService.addMilestoneToProject(projectId, milestoneDto);
+        when(milestoneRepository.save(any(Milestone.class))).thenAnswer(invocation -> {
+            Milestone milestone = invocation.getArgument(0);
+            milestone.setMilestoneId(1L); // Mock에서 ID를 설정
+            return milestone;
+        });
+        MilestoneDto result = milestoneService.addMilestoneToProject(projectId, milestoneRequest);
 
         assertEquals("New Milestone", result.getMilestoneName());
     }
@@ -81,14 +88,14 @@ class MilestoneServiceTest {
     @Test
     void addMilestoneToProject_ProjectNotFound() {
         Long projectId = 1L;
-        MilestoneDto milestoneDto = new MilestoneDto("New Milestone",
+        MilestoneRequest MilestoneRequest = new MilestoneRequest("New Milestone",
                 LocalDateTime.of(2024, 10, 1, 0, 0),
                 LocalDateTime.of(2024, 12, 31, 23, 59));
 
         when(projectRepository.findById(projectId)).thenReturn(Optional.empty());
 
         assertThrows(NoSuchProjectFoundException.class,
-                () -> milestoneService.addMilestoneToProject(projectId, milestoneDto));
+                () -> milestoneService.addMilestoneToProject(projectId, MilestoneRequest));
     }
 
     @Test
@@ -98,7 +105,7 @@ class MilestoneServiceTest {
                 LocalDateTime.of(2024, 10, 1, 0, 0),
                 LocalDateTime.of(2024, 12, 31, 23, 59), new Project());
 
-        MilestoneDto updateDto = new MilestoneDto(
+        MilestoneDto updateDto = new MilestoneDto(1L,
                 "Updated Milestone",
                 LocalDateTime.of(2024, 11, 1, 0, 0),
                 LocalDateTime.of(2025, 1, 31, 23, 59)
@@ -115,7 +122,7 @@ class MilestoneServiceTest {
     @Test
     void updateMilestoneInProject_MilestoneNotFound() {
         Long milestoneId = 1L;
-        MilestoneDto updateDto = new MilestoneDto(
+        MilestoneDto updateDto = new MilestoneDto(1L,
                 "Updated Milestone",
                 LocalDateTime.of(2024, 11, 1, 0, 0),
                 LocalDateTime.of(2025, 1, 31, 23, 59)
