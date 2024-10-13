@@ -11,7 +11,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/project/{projectId}/task/{taskId}/comment")
+@RequestMapping("/api/project/{projectId}/task/{taskId}/comment")
 public class CommentController {
     private final CommentService commentService;
 

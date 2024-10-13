@@ -1,5 +1,6 @@
 package com.nhnacademy.mini_dooray.task.dto;
 
+import com.nhnacademy.mini_dooray.task.domain.TagDto;
 import com.nhnacademy.mini_dooray.task.entity.Tag;
 import lombok.*;
 
@@ -23,7 +24,7 @@ public class TaskDto {
 
     private LocalDateTime milestoneDeadline;
 
-    private List<String> tagName;
+    private List<TagDto> tagName;
 
     public TaskDto(long taskId,String memberId,String taskTitle,String taskContent){
         this.taskId=taskId;

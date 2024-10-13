@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Slf4j
 @RestController
 @RequestMapping("/api/project/{projectId}/task")
@@ -19,7 +21,7 @@ public class TaskController {
 
     // 업무 목록 조회
     @GetMapping
-    public ResponseEntity<TaskListDto> getTaskList(@PathVariable long projectId){
+    public ResponseEntity<List<TaskDto>> getTaskList(@PathVariable long projectId){
         return new ResponseEntity<>(taskService.getTaskList(projectId),HttpStatus.OK);
     }
 

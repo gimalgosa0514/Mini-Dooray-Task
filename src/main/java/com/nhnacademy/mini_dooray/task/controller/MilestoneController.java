@@ -11,7 +11,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/project/{projectId}")
+@RequestMapping("/api/project/{projectId}")
 public class MilestoneController {
     private final MilestoneService milestoneService;
 
