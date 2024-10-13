@@ -1,13 +1,15 @@
 package com.nhnacademy.mini_dooray.task.controller;
 
 import com.nhnacademy.mini_dooray.task.domain.MilestoneDto;
+import com.nhnacademy.mini_dooray.task.domain.ResponseMessage;
 import com.nhnacademy.mini_dooray.task.service.MilestoneService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import static org.springframework.http.HttpStatus.OK;
 
 @Slf4j
 @RestController
@@ -25,18 +27,27 @@ public class MilestoneController {
     }
 
     @PostMapping("/milestone")
-    public ResponseEntity<MilestoneDto> addMilestoneToProject(@PathVariable Long projectId, @RequestBody MilestoneDto milestoneDto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(milestoneService.addMilestoneToProject(projectId, milestoneDto));
+    public ResponseEntity<ResponseMessage> addMilestoneToProject(@PathVariable Long projectId, @RequestBody MilestoneDto milestoneDto) {
+        milestoneService.addMilestoneToProject(projectId, milestoneDto);
+        ResponseMessage responseMessage = new ResponseMessage("등록 성공");
+        return ResponseEntity
+                .status(OK)
+                .contentType(org.springframework.http.MediaType.APPLICATION_JSON) // JSON으로 응답
+                .body(responseMessage);
+//        return ResponseEntity.status(OK).body(responseMessage);
     }
 
     @PutMapping("/milestone/{milestoneId}")
-    public ResponseEntity<MilestoneDto> updateMilestoneInProject(@PathVariable Long milestoneId, @RequestBody MilestoneDto milestoneDto) {
-        return ResponseEntity.ok(milestoneService.updateMilestoneInProject(milestoneId, milestoneDto));
+    public ResponseEntity<ResponseMessage> updateMilestoneInProject(@PathVariable Long milestoneId, @RequestBody MilestoneDto milestoneDto) {
+        milestoneService.updateMilestoneInProject(milestoneId, milestoneDto);
+        ResponseMessage responseMessage = new ResponseMessage("수정 성공");
+        return ResponseEntity.status(OK).body(responseMessage);
     }
 
     @DeleteMapping("/milestone/{milestoneId}")
-    public ResponseEntity<Void> deleteProjectMilestone(@PathVariable Long milestoneId) {
+    public ResponseEntity<ResponseMessage> deleteProjectMilestone(@PathVariable Long milestoneId) {
         milestoneService.deleteProjectMilestone(milestoneId);
-        return ResponseEntity.noContent().build();
+        ResponseMessage responseMessage = new ResponseMessage("삭제 성공");
+        return ResponseEntity.status(OK).body(responseMessage);
     }
 }
