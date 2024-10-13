@@ -1,6 +1,7 @@
 package com.nhnacademy.mini_dooray.task.controller;
 
 import com.nhnacademy.mini_dooray.task.domain.MilestoneDto;
+import com.nhnacademy.mini_dooray.task.domain.MilestoneRequest;
 import com.nhnacademy.mini_dooray.task.service.MilestoneService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -25,7 +26,7 @@ public class MilestoneController {
     }
 
     @PostMapping("/milestone")
-    public ResponseEntity<MilestoneDto> addMilestoneToProject(@PathVariable Long projectId, @RequestBody MilestoneDto milestoneDto) {
+    public ResponseEntity<MilestoneDto> addMilestoneToProject(@PathVariable Long projectId, @RequestBody MilestoneRequest milestoneDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(milestoneService.addMilestoneToProject(projectId, milestoneDto));
     }
 

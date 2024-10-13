@@ -1,6 +1,7 @@
 package com.nhnacademy.mini_dooray.task.service;
 
 import com.nhnacademy.mini_dooray.task.domain.MilestoneDto;
+import com.nhnacademy.mini_dooray.task.domain.MilestoneRequest;
 import com.nhnacademy.mini_dooray.task.entity.Milestone;
 import com.nhnacademy.mini_dooray.task.entity.Project;
 import com.nhnacademy.mini_dooray.task.exception.*;
@@ -25,6 +26,7 @@ public class MilestoneService {
         List<Milestone> milestones = milestoneRepository.findAllByProject_ProjectId(projectId);
         return milestones.stream()
                 .map(milestone -> new MilestoneDto(
+                        milestone.getMilestoneId(),
                         milestone.getMilestoneName(),
                         milestone.getMilestoneStartline(),
                         milestone.getMilestoneDeadline()
@@ -32,7 +34,7 @@ public class MilestoneService {
                 .toList();
     }
 
-    public MilestoneDto addMilestoneToProject(Long projectId, MilestoneDto milestoneDto) {
+    public MilestoneDto addMilestoneToProject(Long projectId, MilestoneRequest milestoneDto) {
         Project project = projectRepository.findById(projectId)
                 .orElseThrow(() -> new NoSuchProjectFoundException("Project not found with id: " + projectId));
 
@@ -44,7 +46,7 @@ public class MilestoneService {
                 .build();
 
         milestoneRepository.save(milestone);
-        return new MilestoneDto(milestone.getMilestoneName(), milestone.getMilestoneStartline(), milestone.getMilestoneDeadline());
+        return new MilestoneDto(milestone.getMilestoneId(),milestone.getMilestoneName(), milestone.getMilestoneStartline(), milestone.getMilestoneDeadline());
     }
 
     public MilestoneDto updateMilestoneInProject(Long milestoneId, MilestoneDto milestoneDto) {
@@ -56,7 +58,7 @@ public class MilestoneService {
         milestone.setMilestoneDeadline(milestoneDto.getMilestoneDeadline());
         milestoneRepository.save(milestone);
 
-        return new MilestoneDto(milestone.getMilestoneName(), milestone.getMilestoneStartline(), milestone.getMilestoneDeadline());
+        return new MilestoneDto(milestone.getMilestoneId(),milestone.getMilestoneName(), milestone.getMilestoneStartline(), milestone.getMilestoneDeadline());
     }
 
     public void deleteProjectMilestone(Long milestoneId) {
