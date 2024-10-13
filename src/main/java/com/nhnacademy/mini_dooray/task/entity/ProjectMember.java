@@ -22,7 +22,7 @@ public class ProjectMember {
 
     private String memberId;
 
-    @ManyToOne(fetch = LAZY)
+    @ManyToOne(fetch = LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "project_id")
     private Project project;
 

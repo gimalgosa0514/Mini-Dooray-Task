@@ -36,7 +36,7 @@ public class TagController {
     @PostMapping
     public ResponseEntity<ResponseMessage> addTag(
             @PathVariable Long projectId, @RequestBody TagCreateRequest request) {
-        tagService.addTag(projectId, request.getName());
+        tagService.addTag(projectId, request.getTagName());
         ResponseMessage responseMessage = new ResponseMessage("생성 성공");
 
         return ResponseEntity.status(CREATED).body(responseMessage);

@@ -1,13 +1,15 @@
 package com.nhnacademy.mini_dooray.task.controller;
 
 import com.nhnacademy.mini_dooray.task.domain.CommentDto;
+import com.nhnacademy.mini_dooray.task.domain.ResponseMessage;
 import com.nhnacademy.mini_dooray.task.service.CommentService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import static org.springframework.http.HttpStatus.OK;
 
 @Slf4j
 @RestController
@@ -25,18 +27,23 @@ public class CommentController {
     }
 
     @PostMapping
-    public ResponseEntity<CommentDto> addComment(@RequestBody CommentDto commentDto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(commentService.addComment(commentDto));
+    public ResponseEntity<ResponseMessage> addComment(@RequestBody CommentDto commentDto) {
+        commentService.addComment(commentDto);
+        ResponseMessage responseMessage = new ResponseMessage("생성 성공");
+        return ResponseEntity.status(OK).body(responseMessage);
     }
 
     @PutMapping("/{commentId}")
-    public ResponseEntity<CommentDto> updateComment(@PathVariable Long commentId, @RequestBody CommentDto commentDto) {
-        return ResponseEntity.ok(commentService.updateComment(commentId, commentDto));
+    public ResponseEntity<ResponseMessage> updateComment(@PathVariable Long commentId, @RequestBody CommentDto commentDto) {
+        commentService.updateComment(commentId, commentDto);
+        ResponseMessage responseMessage = new ResponseMessage("수정 성공");
+        return ResponseEntity.status(OK).body(responseMessage);
     }
 
     @DeleteMapping("/{commentId}")
-    public ResponseEntity<Void> deleteComment(@PathVariable Long commentId) {
+    public ResponseEntity<ResponseMessage> deleteComment(@PathVariable Long commentId) {
         commentService.removeComment(commentId);
-        return ResponseEntity.noContent().build();
+        ResponseMessage responseMessage = new ResponseMessage("삭제 성공");
+        return ResponseEntity.status(OK).body(responseMessage);
     }
 }

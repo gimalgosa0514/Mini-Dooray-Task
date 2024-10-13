@@ -40,7 +40,6 @@ public class CommentService {
 
     public CommentDto addComment(CommentDto commentDto) {
 
-
         Task task = taskRepository.findById(commentDto.getTaskId())
                 .orElseThrow(() -> new TaskNotFoundException("Task not found with id: " + commentDto.getTaskId()));
 
